@@ -4,7 +4,7 @@ import PreloadScene from "./scenes/PreloadScene";
 import ScoreScene from "./scenes/ScoreScene";
 import PauseScene from "./scenes/PauseScene";
 
-const WIDTH = 1000;
+const WIDTH = 1500;
 const HEIGHT = 650;
 const GreenPosition = { x: WIDTH * 0.2, y: HEIGHT / 2 };
 const shared_config = {

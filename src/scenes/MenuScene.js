@@ -31,14 +31,17 @@ class MenuScene extends BaseScene {
     textGameObject.on("pointerover", () => {
       textGameObject.setStyle({
         fill: "#379777",
+        backgroundColor: "#F6E96B ",
       });
     });
 
     textGameObject.on("pointerout", () => {
       textGameObject.setStyle({
         fill: "#DC5F00",
+        backgroundColor: "",
       });
     });
+
     textGameObject.on("pointerup", () => {
       menuItem.scene && this.scene.start(menuItem.scene);
       if (menuItem.text === "Exit") {

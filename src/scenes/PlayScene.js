@@ -235,6 +235,7 @@ class PlayScene extends BaseScene {
 
     pauseButton.on("pointerdown", () => {
       this.statePause = true;
+      this.gameMusic.stop();
       this.physics.pause();
       this.scene.pause();
       this.scene.launch("PauseScene"); //it will not shut down the

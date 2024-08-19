@@ -41,6 +41,7 @@ class PauseScene extends BaseScene {
         //stop the Pause Scene and resume the Play
         this.scene.stop();
         this.scene.resume(menuItem.scene);
+        this.gameMusic.play();
       } else {
         // stopping PlayScee, PauseScene and running Menu
         this.scene.stop("PlayScene");

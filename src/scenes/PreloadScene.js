@@ -16,6 +16,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("seed", "assets/seed.png");
     this.load.image("back", "assets/back.png");
     this.load.audio("crunch", "assets/crunch.mp3");
+    this.load.audio("musicGame", "assets/music.mp3");
   }
 
   create() {

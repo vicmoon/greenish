@@ -44,6 +44,7 @@ class PlayScene extends BaseScene {
     this.createSeed();
     this.handleInputs();
     this.listenEvents();
+    this.playMusic();
 
     // Load the crunch sound
     this.crunchSound = this.sound.add("crunch");
@@ -116,6 +117,14 @@ class PlayScene extends BaseScene {
   }
 
   // FUNCTIONS
+
+  playMusic() {
+    this.gameMusic = this.sound.add("musicGame", {
+      loop: true,
+      volume: 0.3,
+    });
+    this.gameMusic.play();
+  }
 
   listenEvents() {
     if (this.pauseEvent) {

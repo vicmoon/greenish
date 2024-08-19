@@ -1,5 +1,6 @@
 import BaseScene from "./BaseScene";
 const futurePipes = 10;
+const futureSeeds = 10;
 
 class PlayScene extends BaseScene {
   constructor(config) {
@@ -7,6 +8,7 @@ class PlayScene extends BaseScene {
 
     this.greenish = null;
     this.pipes = null;
+    this.seeds = null;
     this.statePause = false;
 
     this.horizontalPipeDistance = 0;
@@ -43,6 +45,19 @@ class PlayScene extends BaseScene {
     this.handleInputs();
     this.listenEvents();
 
+    // Load the crunch sound
+    this.crunchSound = this.sound.add("crunch");
+
+    // Set up collision detection between greenish and seeds
+    this.physics.add.overlap(
+      this.greenish,
+      this.seeds,
+      this.handleSeedCollision,
+      null,
+      this
+    );
+
+    // Create and play the fly animation
     this.anims.create({
       key: "fly",
       frames: this.anims.generateFrameNumbers("greenish", {
@@ -53,6 +68,22 @@ class PlayScene extends BaseScene {
       repeat: -1,
     });
     this.greenish.play("fly");
+  }
+
+  handleSeedCollision(greenish, seed) {
+    // Play the eating sound
+    this.crunchSound.play();
+
+    // Increase the score
+    this.increaseScore();
+
+    // Remove the seed from the game
+    seed.destroy();
+  }
+
+  increaseScore() {
+    this.score++;
+    this.scoreText.setText(`Score: ${this.score}`);
   }
 
   update() {
@@ -170,7 +201,31 @@ class PlayScene extends BaseScene {
   }
 
   createSeed() {
-    const seed = this.add.image(800, 400, "seed");
+    this.seeds = this.physics.add.group(); // Initialize the seeds group
+
+    for (let i = 0; i < futureSeeds; i++) {
+      // Create seeds with random positions
+      const x = Phaser.Math.Between(this.config.width, this.config.width + 400);
+      const y = Phaser.Math.Between(50, this.config.height - 50);
+
+      const seed = this.seeds.create(x, y, "seed");
+      seed.setOrigin(0.5);
+      seed.setVelocityX(-100); // Make seeds move left like the pipes
+
+      this.addFloatingEffect(seed); // Apply floating effect
+    }
+  }
+
+  // Helper function to apply floating effect
+  addFloatingEffect(seed) {
+    this.tweens.add({
+      targets: seed,
+      y: seed.y - 20, // Move up by 20 pixels
+      duration: 1000, // Duration of the tween
+      yoyo: true, // Move back to the starting position
+      repeat: -1, // Repeat indefinitely
+      ease: "Sine.easeInOut", // Smooth easing for a more natural float
+    });
   }
 
   createPipes() {

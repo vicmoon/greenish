@@ -7,7 +7,6 @@ class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.load.image("sky", "assets/background.png");
-
     this.load.spritesheet("greenish", "assets/greenishSprite.png", {
       frameWidth: 50,
       frameHeight: 50,
@@ -16,6 +15,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("pause", "assets/pause.png");
     this.load.image("seed", "assets/seed.png");
     this.load.image("back", "assets/back.png");
+    this.load.audio("crunch", "assets/crunch.mp3");
   }
 
   create() {

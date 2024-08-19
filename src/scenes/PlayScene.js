@@ -86,6 +86,30 @@ class PlayScene extends BaseScene {
     this.scoreText.setText(`Score: ${this.score}`);
   }
 
+  createSeedSpawner() {
+    this.seeds = this.physics.add.group();
+
+    this.time.addEvent({
+      delay: 2000, // Adjust this value to control how often seeds appear (e.g., every 2 seconds)
+      callback: this.spawnSeed,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  spawnSeed() {
+    const x = this.config.width;
+    const y = Phaser.Math.Between(50, this.config.height - 50);
+
+    const seed = this.seeds.create(x, y, "seed");
+    seed.setOrigin(0.5);
+    seed.setVelocityX(-100);
+
+    this.addFloatingEffect(seed); // Apply floating effect
+  }
+
+  // UPDATE
+
   update() {
     this.checkPlayerStatus();
     this.reusePipes();
@@ -205,7 +229,10 @@ class PlayScene extends BaseScene {
 
     for (let i = 0; i < futureSeeds; i++) {
       // Create seeds with random positions
-      const x = Phaser.Math.Between(this.config.width, this.config.width + 400);
+      const x = Phaser.Math.Between(
+        this.config.width + i * 200,
+        this.config.width + 400 + i * 200
+      );
       const y = Phaser.Math.Between(50, this.config.height - 50);
 
       const seed = this.seeds.create(x, y, "seed");

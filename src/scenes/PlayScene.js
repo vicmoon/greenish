@@ -44,10 +44,11 @@ class PlayScene extends BaseScene {
     this.createSeed();
     this.handleInputs();
     this.listenEvents();
-    this.playMusic();
+    this.playGameMusic();
 
     // Load the crunch sound
     this.crunchSound = this.sound.add("crunch");
+    this.deadSound = this.sound.add("dead");
 
     // Set up collision detection between greenish and seeds
     this.physics.add.overlap(
@@ -118,12 +119,19 @@ class PlayScene extends BaseScene {
 
   // FUNCTIONS
 
-  playMusic() {
+  playGameMusic() {
     this.gameMusic = this.sound.add("musicGame", {
       loop: true,
       volume: 0.3,
     });
     this.gameMusic.play();
+  }
+
+  playDeadMusic() {
+    this.deadSound = this.sound.add("dead", {
+      loop: true,
+      volume: 0.4,
+    });
   }
 
   listenEvents() {
@@ -352,9 +360,11 @@ class PlayScene extends BaseScene {
   }
 
   gameOver() {
+    this.deadSound.play();
     this.physics.pause();
     this.greenish.setTint(0xee4824);
     this.saveBestScore();
+
     this.time.addEvent({
       delay: 1000,
       callback: () => {
@@ -363,6 +373,7 @@ class PlayScene extends BaseScene {
       loop: false,
     });
   }
+
   flap() {
     if (this.statePause) {
       return;

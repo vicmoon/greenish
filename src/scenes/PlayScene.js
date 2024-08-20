@@ -45,10 +45,13 @@ class PlayScene extends BaseScene {
     this.handleInputs();
     this.listenEvents();
     this.playGameMusic();
+    this.playDeadMusic();
+    this.playCoinMusic();
 
-    // Load the crunch sound
+    // Load the sound
     this.crunchSound = this.sound.add("crunch");
-    this.deadSound = this.sound.add("dead");
+    // this.deadSound = this.sound.add("dead");
+    // this.coinSound = this.sound.add("coin");
 
     // Set up collision detection between greenish and seeds
     this.physics.add.overlap(
@@ -83,10 +86,11 @@ class PlayScene extends BaseScene {
     seed.destroy();
   }
 
-  increaseScore() {
-    this.score++;
-    this.scoreText.setText(`Score: ${this.score}`);
-  }
+  // increaseScore() {
+  //   this.score++;
+
+  //   this.scoreText.setText(`Score: ${this.score}`);
+  // }
 
   createSeedSpawner() {
     this.seeds = this.physics.add.group();
@@ -131,6 +135,15 @@ class PlayScene extends BaseScene {
     this.deadSound = this.sound.add("dead", {
       loop: true,
       volume: 0.4,
+      duration: 1,
+    });
+  }
+
+  playCoinMusic() {
+    this.coinSound = this.sound.add("coin", {
+      loop: true,
+      volume: 0.3,
+      duration: 1,
     });
   }
 
@@ -384,6 +397,7 @@ class PlayScene extends BaseScene {
 
   increaseScore() {
     this.score++;
+    this.coinSound.play();
     this.scoreText.setText(`Score: ${this.score}`);
   }
 }

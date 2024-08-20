@@ -1,6 +1,6 @@
 import BaseScene from "./BaseScene";
 const futurePipes = 10;
-const futureSeeds = 10;
+const futureSeeds = 100;
 
 class PlayScene extends BaseScene {
   constructor(config) {
@@ -135,7 +135,7 @@ class PlayScene extends BaseScene {
     this.deadSound = this.sound.add("dead", {
       loop: true,
       volume: 0.4,
-      duration: 1,
+      duration: 0.1,
     });
   }
 
@@ -143,7 +143,7 @@ class PlayScene extends BaseScene {
     this.coinSound = this.sound.add("coin", {
       loop: true,
       volume: 0.3,
-      duration: 1,
+      duration: 0.1,
     });
   }
 
@@ -375,6 +375,7 @@ class PlayScene extends BaseScene {
 
   gameOver() {
     this.deadSound.play();
+    this.gameMusic.stop();
     this.physics.pause();
     this.greenish.setTint(0xee4824);
     this.saveBestScore();
@@ -393,11 +394,13 @@ class PlayScene extends BaseScene {
       return;
     }
     this.greenish.body.velocity.y = -this.flapVelocity;
+    this.coinSound.stop();
   }
 
   increaseScore() {
     this.score++;
     this.coinSound.play();
+
     this.scoreText.setText(`Score: ${this.score}`);
   }
 }

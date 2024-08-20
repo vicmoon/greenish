@@ -42,7 +42,6 @@ class PlayScene extends BaseScene {
     this.createScore();
     this.createPause();
     this.createSeed();
-    this.createBackground();
     this.handleInputs();
     this.listenEvents();
     this.playGameMusic();

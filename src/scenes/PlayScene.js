@@ -133,7 +133,6 @@ class PlayScene extends BaseScene {
 
   playDeadMusic() {
     this.deadSound = this.sound.add("dead", {
-      loop: true,
       volume: 0.4,
       duration: 0.1,
     });
@@ -141,7 +140,6 @@ class PlayScene extends BaseScene {
 
   playCoinMusic() {
     this.coinSound = this.sound.add("coin", {
-      loop: true,
       volume: 0.3,
       duration: 0.1,
     });
@@ -383,6 +381,7 @@ class PlayScene extends BaseScene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
+        this.deadSound.stop();
         this.scene.restart();
       },
       loop: false,

@@ -42,6 +42,7 @@ class PlayScene extends BaseScene {
     this.createScore();
     this.createPause();
     this.createSeed();
+    this.createBackground();
     this.handleInputs();
     this.listenEvents();
     this.playGameMusic();
@@ -249,7 +250,7 @@ class PlayScene extends BaseScene {
       this.gameMusic.stop();
       this.physics.pause();
       this.scene.pause();
-      this.scene.launch("PauseScene"); //it will not shut down the
+      this.scene.launch("PauseScene"); //it will not shut down the scene
     });
   }
 
@@ -399,7 +400,6 @@ class PlayScene extends BaseScene {
   increaseScore() {
     this.score++;
     this.coinSound.play();
-
     this.scoreText.setText(`Score: ${this.score}`);
   }
 }

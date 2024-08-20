@@ -348,10 +348,10 @@ class PlayScene extends BaseScene {
     });
   }
   increaseDifficulty() {
-    if (this.score === 20) {
+    if (this.score === 30) {
       this.currentDifficulty === "normal";
     }
-    if (this.score === 40) {
+    if (this.score === 50) {
       this.currentDifficulty === "hard";
     }
   }
